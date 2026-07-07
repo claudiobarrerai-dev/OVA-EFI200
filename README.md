@@ -1,339 +1,166 @@
-/* ==========================================================================
-   quiz.js — Autoevaluación gamificada de la Unidad 1.
-   4 opción múltiple, 2 verdadero/falso con explicación,
-   1 relación/clasificación, 1 reflexión abierta (no autocorregible).
-   Criterio de logro sugerido: 70%.
-   ========================================================================== */
+# OVA EFI-200 · "Muévete con propósito"
 
-(function () {
-  "use strict";
+Objeto Virtual de Aprendizaje (OVA) sobre actividad física saludable y habilidades motrices para la vida universitaria, elaborado a partir del syllabus de **EFI-200 Educación Física I** (Universidad Técnica Federico Santa María, 1er semestre 2026).
 
-  const QUIZ_DATA = [
-    {
-      type: "mc",
-      title: "1. ¿Cuál de las siguientes opciones define mejor la actividad física sistemática?",
-      options: [
-        "Cualquier movimiento corporal ocasional realizado sin planificación.",
-        "La práctica regular y organizada de movimiento, con frecuencia e intensidad planificadas.",
-        "Únicamente el ejercicio realizado en un gimnasio con máquinas.",
-        "Un tipo de deporte competitivo de alto rendimiento."
-      ],
-      correct: 1,
-      explain: "La actividad física sistemática se caracteriza por su regularidad y planificación, lo que permite generar beneficios sostenidos para la salud."
-    },
-    {
-      type: "mc",
-      title: "2. ¿Cuál de estas es una capacidad condicionante?",
-      options: ["Coordinación óculo-manual", "Equilibrio", "Fuerza", "Ritmo"],
-      correct: 2,
-      explain: "La fuerza, junto con la resistencia, velocidad y flexibilidad, corresponde a las capacidades condicionantes trabajadas en el syllabus mediante estaciones de fuerza de tren superior e inferior."
-    },
-    {
-      type: "mc",
-      title: "3. Un circuito con aros, bancas y balones que exige ajustar la mirada y el movimiento de las manos, ¿qué capacidad desarrolla principalmente?",
-      options: ["Capacidad coordinativa", "Capacidad condicionante", "Habilidad motriz compleja de un deporte específico", "Ninguna, es solo recreación"],
-      correct: 0,
-      explain: "Ese tipo de circuito trabaja capacidades coordinativas como la coordinación óculo-manual y óculo-podal."
-    },
-    {
-      type: "mc",
-      title: "4. ¿Qué caracteriza a un juego de socialización dentro de la asignatura?",
-      options: [
-        "Se juega en silencio y de forma individual.",
-        "Combina movimiento con interacción social, comunicación y convivencia.",
-        "Excluye el trabajo en equipo.",
-        "No tiene relación con las habilidades motrices."
-      ],
-      correct: 1,
-      explain: "Los juegos de socialización (como pintas en pareja o postas) combinan práctica motriz con vínculo social y convivencia."
-    },
-    {
-      type: "tf",
-      title: "5. Verdadero o falso: la competencia sello Vida Saludable solo se aplica dentro de la sala de clases y no se relaciona con la vida universitaria en general.",
-      correct: false,
-      explain: "Falso. La competencia sello Vida Saludable busca que el estudiante incorpore hábitos de autocuidado en su vida universitaria y personal, más allá de la clase."
-    },
-    {
-      type: "tf",
-      title: "6. Verdadero o falso: las habilidades motrices básicas (locomoción, manipulación, equilibrio) son la base para desarrollar habilidades motrices más complejas.",
-      correct: true,
-      explain: "Verdadero. Las habilidades básicas sostienen el aprendizaje de habilidades complejas, como los fundamentos técnicos de un deporte."
-    },
-    {
-      type: "match",
-      title: "7. Relaciona cada concepto con su ejemplo correspondiente.",
-      pairs: [
-        { left: "Capacidad condicionante", right: "Fuerza de tren superior" },
-        { left: "Capacidad coordinativa", right: "Coordinación óculo-podal" },
-        { left: "Habilidad motriz básica", right: "Correr, saltar, lanzar" },
-        { left: "Juego de socialización", right: "Postas en pareja con balón" }
-      ],
-      explain: "Cada capacidad o habilidad se reconoce por el tipo de exigencia física o social que plantea la actividad."
-    },
-    {
-      type: "open",
-      title: "8. Reflexión y transferencia: piensa en tu semana universitaria actual. ¿Qué capacidad o habilidad motriz de esta unidad podrías aplicar de forma sistemática y por qué?",
-      guide: [
-        "Menciona una capacidad o habilidad concreta vista en la unidad (por ejemplo, una capacidad condicionante o coordinativa).",
-        "Relaciónala con una situación real de tu semana (tiempo disponible, lugar, compañía).",
-        "Explica qué beneficio esperarías obtener si la practicas de forma sistemática.",
-        "Esta respuesta no se autocalifica: revísala con estos criterios o coméntala con tu docente."
-      ]
-    }
-  ];
+Es un recurso **delimitado, autónomo y reutilizable**: no reemplaza el curso completo, se centra en la Unidad 1 del programa y puede incorporarse a Moodle o enlazarse desde otro ecosistema digital.
 
-  const PASS_THRESHOLD = 70;
+---
 
-  let current = 0;
-  let score = 0;
-  let maxScore = 0;
-  const answered = new Array(QUIZ_DATA.length).fill(false);
+## 1. Decisiones pedagógicas
 
-  const container = document.getElementById("quizContainer");
-  if (!container) return;
+- **Alcance acotado:** se trabajó solo la Unidad 1 (Actividad física saludable), evitando convertir el OVA en un repositorio de todo el programa.
+- **Resultados de aprendizaje adaptados:** se reformularon los RdA del syllabus con verbos observables de la taxonomía de Bloom (reconocer, diferenciar, diseñar, valorar), cubriendo comprensión, aplicación, reflexión y colaboración.
+- **Identidad visual "pizarra táctica":** se optó por una estética deportiva y técnica (líneas de cancha, numeración tipo dorsal) en los colores institucionales de la UTFSM (azul oscuro, amarillo, rojo), evitando estilos genéricos de plantilla.
+- **Contenidos anclados al syllabus real:** los ejemplos de la infografía, el caso interactivo y las preguntas de autoevaluación provienen de actividades efectivamente descritas en el syllabus (pintas, cuerdas, postas, circuitos de coordinación, taller CTS Vida Saludable), no de contenido inventado.
+- **Transmedia complementaria, no redundante:** video (mostrar), infografía (definir), podcast (contextualizar en la vida universitaria), simulador (aplicar a la propia rutina) y mapa conceptual (integrar) cubren funciones distintas.
+- **Recurso audiovisual real incorporado:** el equipo aportó un video propio ("Nuevo currículo escolar: Educación Física y Salud", ~7:36 min, formato explicativo tipo NotebookLM) que se incrustó localmente en `assets/video/` mediante `<video>` HTML5 (no un iframe externo, ya que el archivo es propio y no está alojado en una plataforma de terceros). Su contenido —la inclusión del concepto de salud en el currículo escolar y las reglas adaptadas de los juegos— se usa como contexto complementario a la Unidad 1. Queda pendiente incorporar la transcripción literal completa; por ahora se incluye un resumen del contenido visible en pantalla.
+- **Gamificación con sentido pedagógico:** puntos, insignias y barra de progreso están ligados a acciones de aprendizaje real (explorar la infografía, completar el caso, usar el planificador), no a competencia superficial.
+- **Accesibilidad de base:** HTML semántico, navegación por teclado, texto alternativo, contraste, transcripciones, `prefers-reduced-motion`, y guardado de progreso en `localStorage`.
+- **Tipografías de sistema:** no se cargan fuentes externas, para evitar dependencias y asegurar funcionamiento offline/en hosting estático simple.
+- **EFI-Bot no generativo:** el asistente responde solo desde una base de conocimientos preconfigurada (`data/knowledge-base.js`), sin conexión a APIs externas ni claves.
 
-  const progressLabel = document.getElementById("quizProgressLabel");
-  const progressFill = document.getElementById("quizProgressFill");
-  const finalPanel = document.getElementById("quizFinal");
-  const prevBtn = document.getElementById("quizPrev");
-  const nextBtn = document.getElementById("quizNext");
+## 2. Árbol de archivos
 
-  function render() {
-    container.innerHTML = "";
-    QUIZ_DATA.forEach((q, i) => {
-      const wrap = document.createElement("div");
-      wrap.className = "quiz-question" + (i === current ? " active" : "");
-      wrap.setAttribute("data-index", i);
+```
+OVA_EFI200/
+│
+├── index.html
+├── css/
+│   └── styles.css
+├── js/
+│   ├── app.js
+│   ├── quiz.js
+│   ├── simulator.js
+│   └── assistant.js
+├── data/
+│   └── knowledge-base.js
+├── assets/
+│   ├── img/
+│   │   └── escudo-usm.png
+│   ├── audio/          (vacío: reservado para audio grabado real, opcional)
+│   └── video/          (vacío: reservado para video propio, opcional)
+├── README.md
+└── referencias.md
+```
 
-      const title = document.createElement("p");
-      title.className = "q-title";
-      title.textContent = q.title;
-      wrap.appendChild(title);
+## 3. Cómo revisarlo localmente
 
-      if (q.type === "mc") {
-        const list = document.createElement("div");
-        list.className = "q-options";
-        q.options.forEach((opt, oi) => {
-          const b = document.createElement("button");
-          b.type = "button";
-          b.textContent = opt;
-          b.addEventListener("click", () => answerMC(i, oi, b, wrap));
-          list.appendChild(b);
-        });
-        wrap.appendChild(list);
-      } else if (q.type === "tf") {
-        const list = document.createElement("div");
-        list.className = "q-options";
-        [["Verdadero", true], ["Falso", false]].forEach(([label, val]) => {
-          const b = document.createElement("button");
-          b.type = "button";
-          b.textContent = label;
-          b.addEventListener("click", () => answerTF(i, val, b, wrap));
-          list.appendChild(b);
-        });
-        wrap.appendChild(list);
-      } else if (q.type === "match") {
-        const grid = document.createElement("div");
-        grid.className = "match-grid";
-        const rightOptions = q.pairs.map((p) => p.right);
-        q.pairs.forEach((p, pi) => {
-          const row = document.createElement("div");
-          row.className = "match-row";
-          const left = document.createElement("span");
-          left.textContent = p.left;
-          const select = document.createElement("select");
-          select.setAttribute("aria-label", "Selecciona la pareja correcta para " + p.left);
-          const empty = document.createElement("option");
-          empty.textContent = "Selecciona…";
-          empty.value = "";
-          select.appendChild(empty);
-          rightOptions.forEach((r) => {
-            const o = document.createElement("option");
-            o.textContent = r;
-            o.value = r;
-            select.appendChild(o);
-          });
-          select.setAttribute("data-correct", p.right);
-          row.appendChild(left);
-          row.appendChild(select);
-          grid.appendChild(row);
-        });
-        wrap.appendChild(grid);
-        const checkBtn = document.createElement("button");
-        checkBtn.type = "button";
-        checkBtn.className = "btn btn-primary mt-3";
-        checkBtn.textContent = "Comprobar relación";
-        checkBtn.addEventListener("click", () => answerMatch(i, grid, wrap, checkBtn));
-        wrap.appendChild(checkBtn);
-      } else if (q.type === "open") {
-        const textarea = document.createElement("textarea");
-        textarea.rows = 4;
-        textarea.style.width = "100%";
-        textarea.style.padding = "10px";
-        textarea.style.borderRadius = "6px";
-        textarea.style.border = "2px solid var(--line)";
-        textarea.setAttribute("aria-label", q.title);
-        wrap.appendChild(textarea);
-        const guideBtn = document.createElement("button");
-        guideBtn.type = "button";
-        guideBtn.className = "btn btn-outline mt-3";
-        guideBtn.textContent = "Ver criterios para revisar mi respuesta";
-        const guideBox = document.createElement("div");
-        guideBox.className = "reflect-guide";
-        guideBox.style.display = "none";
-        const ul = document.createElement("ul");
-        q.guide.forEach((g) => {
-          const li = document.createElement("li");
-          li.textContent = g;
-          ul.appendChild(li);
-        });
-        guideBox.appendChild(ul);
-        guideBtn.addEventListener("click", () => {
-          guideBox.style.display = guideBox.style.display === "none" ? "block" : "none";
-          if (!answered[i]) {
-            answered[i] = true;
-            markSectionDone(i);
-          }
-        });
-        wrap.appendChild(guideBtn);
-        wrap.appendChild(guideBox);
-      }
+1. Descomprime `OVA_EFI200_Actividad_Fisica_Saludable.zip`.
+2. Abre el archivo `index.html` con doble clic, o arrástralo a cualquier navegador moderno (Chrome, Firefox, Edge, Safari).
+3. No requiere instalación, servidor, Node.js ni base de datos.
 
-      const explain = document.createElement("div");
-      explain.className = "q-explain";
-      explain.textContent = q.explain || "";
-      wrap.appendChild(explain);
+## 4. Cómo subirlo a un hosting estático
 
-      container.appendChild(wrap);
-    });
-    updateNav();
-  }
+1. Sube la carpeta completa `OVA_EFI200/` (manteniendo la estructura de subcarpetas) a cualquier hosting estático: GitHub Pages, Netlify, Vercel, un servidor propio, etc.
+2. Asegúrate de que `index.html` quede en la raíz del sitio o del subdirectorio publicado.
+3. No es necesario configurar build, compilación ni variables de entorno.
 
-  function markSectionDone(i) {
-    answered[i] = true;
-  }
+## 5. Cómo enlazarlo o incrustarlo en Moodle
 
-  function answerMC(i, selected, btnEl, wrap) {
-    if (answered[i]) return;
-    answered[i] = true;
-    maxScore += 1;
-    const q = QUIZ_DATA[i];
-    const buttons = wrap.querySelectorAll(".q-options button");
-    buttons.forEach((b, idx) => {
-      b.disabled = true;
-      if (idx === q.correct) b.classList.add("correct");
-    });
-    if (selected === q.correct) {
-      score += 1;
-    } else {
-      btnEl.classList.add("incorrect");
-    }
-    wrap.querySelector(".q-explain").classList.add("show");
-    if (window.EFIAddPoints) window.EFIAddPoints(selected === q.correct ? 5 : 1);
-  }
+- **Como enlace externo:** en Moodle, agrega un recurso "URL" apuntando a la dirección donde publicaste `index.html`.
+- **Como página incrustada:** usa un recurso "Paquete IMS CP" o incrusta un `<iframe>` en una página de Moodle apuntando a la URL pública del sitio, por ejemplo:
+  ```html
+  <iframe src="https://tu-hosting.com/OVA_EFI200/index.html" width="100%" height="900" style="border:0;"></iframe>
+  ```
+- **Como archivo SCORM/paquete:** si tu Moodle lo requiere, comprime la carpeta `OVA_EFI200/` completa y súbela como recurso tipo "Archivo", indicando `index.html` como página principal.
 
-  function answerTF(i, selected, btnEl, wrap) {
-    if (answered[i]) return;
-    answered[i] = true;
-    maxScore += 1;
-    const q = QUIZ_DATA[i];
-    const buttons = wrap.querySelectorAll(".q-options button");
-    const correctLabel = q.correct ? "Verdadero" : "Falso";
-    buttons.forEach((b) => {
-      b.disabled = true;
-      if (b.textContent === correctLabel) b.classList.add("correct");
-    });
-    if (selected === q.correct) {
-      score += 1;
-    } else {
-      btnEl.classList.add("incorrect");
-    }
-    wrap.querySelector(".q-explain").classList.add("show");
-    if (window.EFIAddPoints) window.EFIAddPoints(selected === q.correct ? 5 : 1);
-  }
+## 6. Lista de comprobación
 
-  function answerMatch(i, grid, wrap, checkBtn) {
-    if (answered[i]) return;
-    const selects = grid.querySelectorAll("select");
-    let correctCount = 0;
-    selects.forEach((s) => {
-      const isCorrect = s.value === s.getAttribute("data-correct");
-      s.style.borderColor = s.value ? (isCorrect ? "var(--success)" : "var(--red)") : "var(--line)";
-      if (isCorrect) correctCount++;
-    });
-    answered[i] = true;
-    maxScore += 1;
-    score += correctCount === selects.length ? 1 : correctCount / selects.length;
-    checkBtn.disabled = true;
-    wrap.querySelector(".q-explain").classList.add("show");
-    if (window.EFIAddPoints) window.EFIAddPoints(correctCount * 2);
-  }
+| Elemento requerido | Estado |
+|---|---|
+| Carátula con datos institucionales y equipo | ✅ Sección 1 (Inicio) |
+| Objetivos / resultados de aprendizaje (3-4, verbos Bloom) | ✅ Sección 2 |
+| Estructura didáctica con menú navegable de 10 secciones | ✅ Encabezado + `index.html` |
+| Mínimo 3 recursos transmedia funcionales | ✅ 5 recursos (video, infografía, podcast, simulador, mapa conceptual) |
+| Actividades interactivas y gamificadas (mínimo 2) | ✅ Caso interactivo + Reto colaborativo |
+| Ideas principales (5-8) | ✅ Sección 6 |
+| Conclusiones | ✅ Sección 7 |
+| Autoevaluación gamificada (8 preguntas, corrección automática, 70%) | ✅ Sección 8 |
+| Accesibilidad (semántico, teclado, contraste, transcripciones, localStorage) | ✅ Transversal |
+| Anexo de prompt e IA | ✅ Sección 10 + este README |
 
-  function updateNav() {
-    if (progressLabel) progressLabel.textContent = "Pregunta " + (current + 1) + " de " + QUIZ_DATA.length;
-    if (progressFill) progressFill.style.width = Math.round(((current + 1) / QUIZ_DATA.length) * 100) + "%";
-    if (prevBtn) prevBtn.disabled = current === 0;
-    if (nextBtn) nextBtn.textContent = current === QUIZ_DATA.length - 1 ? "Ver resultado" : "Siguiente";
-  }
+## 7. Notas técnicas
 
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      if (current > 0) {
-        current--;
-        showCurrent();
-      }
-    });
-  }
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      if (current < QUIZ_DATA.length - 1) {
-        current++;
-        showCurrent();
-      } else {
-        showResult();
-      }
-    });
-  }
+- El asistente **EFI-Bot** y el resumen de audio usan la **Web Speech API** (`SpeechSynthesisUtterance`), disponible de forma nativa en la mayoría de navegadores modernos; si el navegador no la soporta, se muestra automáticamente la alternativa textual.
+- El progreso de lectura, los puntos y las insignias se guardan en `localStorage` del navegador del estudiante (dato local, no se envía a ningún servidor).
+- No se incluyen enlaces de video ni citas inventadas: los espacios sin un recurso verificado están marcados como `[VIDEO POR INCORPORAR]`, `[TRANSCRIPCIÓN POR INCORPORAR]` o `[FUENTE POR INCORPORAR]`.
+- Para conectar en el futuro un modelo de lenguaje externo real en lugar de EFI-Bot (opcional, no implementado en esta versión): crear una función en `js/assistant.js` que llame a la API externa mediante `fetch`, gestionando la clave de API **desde el backend/servidor**, nunca en el código del front-end.
 
-  function showCurrent() {
-    container.querySelectorAll(".quiz-question").forEach((el, idx) => {
-      el.classList.toggle("active", idx === current);
-    });
-    updateNav();
-  }
+---
 
-  function showResult() {
-    const closedMax = maxScore || 1;
-    const pct = Math.round((score / closedMax) * 100);
-    container.style.display = "none";
-    document.querySelector(".quiz-nav").style.display = "none";
-    if (finalPanel) {
-      finalPanel.classList.add("show");
-      finalPanel.querySelector(".score-ring").textContent = pct + "%";
-      const statusEl = finalPanel.querySelector(".score-status");
-      const pass = pct >= PASS_THRESHOLD;
-      statusEl.textContent = pass ? "Logrado" : "Por reforzar";
-      statusEl.className = "score-status " + (pass ? "pass" : "fail");
-      finalPanel.querySelector(".score-detail").textContent =
-        "Respondiste correctamente " + Math.round(score * 10) / 10 + " de " + closedMax + " preguntas cerradas (criterio de logro: " + PASS_THRESHOLD + "%).";
-    }
-    if (window.EFIUnlockBadge) window.EFIUnlockBadge("autoevaluacion-completa");
-    if (pct >= PASS_THRESHOLD && window.EFIUnlockBadge) window.EFIUnlockBadge("logro-autoevaluacion");
-  }
+## Anexo: prompt completo utilizado
 
-  const retryBtn = document.getElementById("quizRetry");
-  if (retryBtn) {
-    retryBtn.addEventListener("click", () => {
-      current = 0;
-      score = 0;
-      maxScore = 0;
-      answered.fill(false);
-      if (finalPanel) finalPanel.classList.remove("show");
-      container.style.display = "block";
-      document.querySelector(".quiz-nav").style.display = "flex";
-      render();
-    });
-  }
+```
+Actúa simultáneamente como:
+Diseñador instruccional especializado en educación superior.
+Experto en objetos virtuales de aprendizaje, narrativa transmedia y gamificación.
+Desarrollador web front-end experto en HTML5, CSS3 y JavaScript.
+Especialista en accesibilidad, experiencia de usuario y diseño responsivo.
+Voy a adjuntar el syllabus de la asignatura EFI-200 Educación Física I, correspondiente al primer semestre de 2026. Analízalo cuidadosamente y utilízalo como fuente principal para diseñar y desarrollar un Objeto Virtual de Aprendizaje —OVA— con enfoque transmedia.
+No debes crear un curso completo ni abarcar todo el programa. El OVA debe ser un recurso delimitado, autónomo y reutilizable, que pueda incorporarse posteriormente en Moodle o enlazarse desde otro ecosistema digital educativo.
 
-  render();
-})();
+TEMA DEL OVA
+"Muévete con propósito: actividad física saludable y habilidades motrices para la vida universitaria".
+El contenido debe centrarse principalmente en la Unidad 1 del syllabus:
+Actividad física saludable. Capacidades condicionantes y coordinativas. Habilidades motrices básicas y complejas. Juegos de socialización. Competencia transversal sello Vida Saludable. Trabajo en equipo, recreación, ética e inteligencia kinestésica.
+
+PÚBLICO OBJETIVO
+Estudiantes universitarios de primer año que cursan EFI-200 Educación Física I en la Universidad Técnica Federico Santa María.
+
+RESULTADOS DE APRENDIZAJE DEL PROGRAMA
+Reconocer la actividad física sistemática, identificando su contribución hacia un estilo de vida saludable.
+Ejecutar prácticas motrices conscientes, desenvolviéndose corporal y socialmente en las distintas actividades y juegos pre-deportivos.
+Adaptar la redacción para el entorno virtual conservando su sentido, con verbos observables y medibles de la taxonomía de Bloom.
+
+PROPÓSITO GENERAL
+Crear una experiencia digital educativa que permita comprender la relación entre actividad física, habilidades motrices y vida saludable, aplicar estos contenidos en situaciones de la vida universitaria y participar en actividades individuales y colaborativas.
+
+ESTRUCTURA OBLIGATORIA (menú navegable, visible y responsivo):
+1. Inicio y carátula. 2. Objetivos o resultados de aprendizaje. 3. Ruta de aprendizaje: temas y subtemas. 4. Experiencia transmedia. 5. Actividades interactivas y gamificadas. 6. Ideas principales. 7. Conclusiones. 8. Autoevaluación. 9. Referencias. 10. Anexo sobre uso de inteligencia artificial.
+
+CARÁTULA: título, frase motivadora, asignatura EFI-200, programa/unidad académica: Educación Física, institución: Universidad Técnica Federico Santa María, equipo (Claudio Barrera – Coordinador, Víctor Cámara – Investigador), fecha de elaboración: 7 de julio de 2026, identidad visual universitaria/deportiva/moderna, espacio para logotipos institucionales reales.
+
+OBJETIVOS: 3-4 resultados de aprendizaje medibles, con verbos de acción, coherentes con nivel universitario, que incluyan comprensión, aplicación práctica, reflexión y colaboración.
+
+TEMAS Y SUBTEMAS (numeración jerárquica):
+1. Actividad física y vida saludable (1.1 concepto de actividad física sistemática; 1.2 beneficios físicos, sociales y emocionales; 1.3 actividad física y vida universitaria).
+2. Capacidades y habilidades motrices (2.1 capacidades condicionantes; 2.2 capacidades coordinativas; 2.3 habilidades motrices básicas; 2.4 habilidades motrices complejas).
+3. Dimensión social y formativa (3.1 juegos de socialización; 3.2 trabajo en equipo; 3.3 recreación y convivencia; 3.4 ética e inteligencia kinestésica).
+4. Aplicación práctica (4.1 diseño de una actividad física saludable; 4.2 seguridad, autocuidado y adaptación; 4.3 reflexión sobre hábitos personales).
+Explicar con lenguaje académico, claro y cercano, usando tarjetas, ejemplos, preguntas orientadoras, esquemas y elementos desplegables, evitando un repositorio de textos extensos.
+
+INTEGRACIÓN TRANSMEDIA (mínimo 4 recursos funcionales y complementarios):
+A. Recurso audiovisual: sección para video, guion/storyboard de 2-4 minutos, iframe, transcripción escrita; sin inventar enlaces de YouTube, usando marcador si no hay video verificado.
+B. Infografía interactiva en HTML/CSS/JS que explique capacidades condicionantes, coordinativas y habilidades motrices, con definición y ejemplo al pulsar cada componente.
+C. Audio o micro-podcast (2-3 minutos) sobre actividad física y vida universitaria, con Web Speech API, botones de reproducir/pausar/detener y transcripción visible.
+D. Simulador: planificador de actividad física saludable según disponibilidad semanal, intensidad percibida, intereses y objetivo personal; recomendación educativa general (no médica), con advertencias de autocuidado, progresión y consulta profesional.
+E. Mapa conceptual interactivo que relacione actividad física, vida saludable, habilidades motrices, convivencia, ética y trabajo en equipo, permitiendo seleccionar conceptos y desplegar relaciones.
+Cada recurso debe incluir justificación pedagógica: por qué se eligió, qué aprendizaje favorece, cómo complementa a los otros medios y con qué resultado de aprendizaje se relaciona.
+
+ACTIVIDADES INTERACTIVAS Y GAMIFICADAS (mínimo 2):
+Actividad 1 — Caso interactivo individual: estudiante con poco tiempo y hábitos sedentarios que debe decidir sobre organización del tiempo, tipo de actividad, intensidad, descanso, participación con compañeros y seguridad/autocuidado, con retroalimentación inmediata y consecuencias explicadas.
+Actividad 2 — Reto colaborativo: equipos de 3 (coordinador/a, analista de necesidades, diseñador/a de la actividad) diseñan una experiencia de actividad física saludable con objetivo, calentamiento, actividad principal, dinámica de socialización, estrategia de autocuidado y cierre reflexivo; incluir instrucciones, tiempo estimado, criterios de evaluación, sistema de puntos, rúbrica breve, espacio editable y botón para copiar o descargar la propuesta.
+Gamificación con sentido pedagógico: barra de progreso, puntos, insignias, retos, retroalimentación inmediata, mensajes de avance y posibilidad de reintentar, evitando competencia superficial.
+
+IDEAS PRINCIPALES: 5-8 afirmaciones significativas (no repetición del índice) que sinteticen los aprendizajes centrales.
+
+CONCLUSIONES: integrar aprendizajes, relacionar con la vida universitaria, destacar el trabajo colaborativo, proponer formas de aplicar lo aprendido, identificar desafíos de autocuidado, inclusión y participación, sin limitarse a repetir definiciones.
+
+AUTOEVALUACIÓN: 8 preguntas gamificadas (4 opción múltiple, 2 verdadero/falso con explicación, 1 relación/clasificación, 1 reflexión/transferencia); corrección automática de preguntas cerradas, retroalimentación específica, resultado final con puntaje y porcentaje, criterio de logro sugerido 70%, posibilidad de reintentar, explicación de respuestas correctas e incorrectas orientada a aprender; la pregunta abierta debe ofrecer criterios de revisión aunque no se autocalifique.
+
+AGENTE VIRTUAL "EFI-BOT": asistente flotante que responde preguntas frecuentes basándose únicamente en una base de conocimientos construida con el syllabus y los contenidos del sitio; campo de texto, preguntas sugeridas, respuestas escritas y en voz alta mediante Web Speech API (activar/pausar/detener), alternativa textual si el navegador no admite audio, y transparencia de que es un asistente educativo preconfigurado que no reemplaza al docente ni a profesionales de salud. No simular una IA generativa si no existe conexión real a una API; no incluir claves API en el código; se pueden dejar instrucciones opcionales en el README para conectar un modelo externo de forma segura.
+
+DISEÑO Y ACCESIBILIDAD: responsivo (computador/tableta/teléfono), mobile-first, navegación clara con menú fijo o desplegable, indicador de avance, HTML semántico, navegable con teclado, textos alternativos, contraste legible, tipografías de sistema, transcripciones para audio y video, evitar animaciones excesivas, criterios básicos WCAG 2.1 AA, y progreso/resultados del cuestionario guardados con localStorage.
+
+REFERENCIAS Y RIGOR ACADÉMICO: usar el syllabus como fuente principal, conservar su terminología, no inventar autores, citas, estadísticas ni enlaces; marcar como "[FUENTE POR INCORPORAR]" lo que no esté en los documentos adjuntos; referencias finales en formato APA 7; diferenciar fuentes académicas de recursos multimedia.
+
+ANEXO SOBRE INTELIGENCIA ARTIFICIAL: incluir en el README o en una sección imprimible el prompt completo utilizado y una reflexión de máximo 150 palabras sobre cómo se usó la IA, qué aportó, qué contenidos fueron revisados, qué cambios realizó el equipo y por qué sigue siendo necesaria la revisión humana.
+
+ARCHIVOS A GENERAR: paquete web estático (index.html, css/styles.css, js/app.js, js/quiz.js, js/simulator.js, js/assistant.js, data/knowledge-base.js, assets/img, assets/audio, assets/video, README.md, referencias.md) que funcione abriendo index.html en cualquier hosting estático, sin instalación, compilación, Node.js ni base de datos, sin rutas absolutas locales, sin botones inertes ni enlaces rotos, con comentarios claros y sin errores de consola, preparado para incrustarse en Moodle.
+
+ENTREGA FINAL: explicación de decisiones pedagógicas, árbol de archivos, archivos completos y funcionales, un archivo comprimido "OVA_EFI200_Actividad_Fisica_Saludable.zip", instrucciones para revisar localmente / subir a hosting / enlazar en Moodle, y una lista de comprobación del cumplimiento de carátula, objetivos, estructura didáctica, recursos transmedia, actividades interactivas, ideas principales, conclusiones, autoevaluación, accesibilidad y anexo de prompts. Verificar coherencia entre resultados de aprendizaje, contenidos, recursos transmedia, actividades y autoevaluación. No hacer preguntas adicionales; usar marcadores editables entre corchetes cuando falte un dato administrativo.
+```
+
+### Reflexión sobre el uso de IA (máx. 150 palabras)
+
+Ver sección 10 ("Anexo IA") dentro de `index.html`, donde se incluye la misma reflexión del equipo para que sea visible directamente en el sitio.
